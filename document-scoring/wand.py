@@ -15,7 +15,7 @@ class WAND:
         self.curDoc = -1
 
     def get_calculate_times(self):
-        return self.calculate_times
+        return self.documents.get_calculate_times()
 
     def find_pivot_term(self):
         accumulated_ub = 0
@@ -33,7 +33,8 @@ class WAND:
         self.calculate_times += 1
         score = 0
         for term in terms:
-            score += self.calculate_socre(doc_id, term)
+            if self.documents.get_term_frequency(doc_id, term) != 0:
+                score += self.calculate_socre(doc_id, term)
         return score
 
     def calculate_socre(self, doc_id, term):
@@ -62,6 +63,7 @@ class WAND:
         return (inf, None)
 
     def process_query(self, terms, k):
+        self.documents.clean_calculate_times()
         self.calculate_times = 0
         self.curDoc = -1
         posting_lists = []

@@ -8,12 +8,13 @@ class Naive:
         self.calculate_times = 0
 
     def get_calculate_times(self):
-        return self.calculate_times
+        return self.documents.get_calculate_times()
 
     def process_query(self, terms, k):
         """
         Or query processing
         """
+        self.documents.clean_calculate_times()
         scores = {}
         posting_lists = []
         self.calculate_times = 0
